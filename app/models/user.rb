@@ -13,6 +13,9 @@ class User < ApplicationRecord
 
   enum role: { user: 0, moderator: 1 }
 
+  has_many :post_users, dependent: :destroy
+  has_many :posts, through: :post_users
+
   private
 
   def email_domain_check
