@@ -63,9 +63,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_15_220611) do
   create_table "post_users", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "user_id", null: false
+    t.integer "commentable_id", null: false
+    t.string "commentable_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  end
+
+  create_table "post_users", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "user_id", null: false
     t.boolean "owner_boolean"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_users_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_post_users_on_user_id_and_post_id", unique: true
+    t.index ["user_id"], name: "index_post_users_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -101,4 +114,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_15_220611) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "post_users", "posts"
+  add_foreign_key "post_users", "users"
 end
