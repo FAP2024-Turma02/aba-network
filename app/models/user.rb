@@ -12,13 +12,17 @@ class User < ApplicationRecord
   validate :email_domain_check
   validate :password_complexity
 
-  enum role: { user: 0, moderator: 1 }
+  enum role: { user: 0, moderator: 1, admin: 2 }
 
   has_many :post_users, dependent: :destroy
   has_many :posts, through: :post_users
   has_many :comments, dependent: :destroy
   belongs_to :company
 
+  def admin?
+    admin
+  end
+  
   private
 
   def email_domain_check

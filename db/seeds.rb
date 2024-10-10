@@ -1,11 +1,12 @@
-# Comment.destroy_all
-# Post.destroy_all
-# User.destroy_all
-# Domain.destroy_all
-# Company.destroy_all
-# CompanyDomain.destroy_all
-
-# puts "Conteúdo deletado com sucesso!"
+if Rails.env.development?
+  Comment.destroy_all
+  Post.destroy_all
+  User.destroy_all
+  Domain.destroy_all
+  Company.destroy_all
+  CompanyDomain.destroy_all
+  puts "Conteúdo deletado com sucesso!"
+end
 
 domain_softex = Domain.create!(
   domain_url: "softex.com"
@@ -21,7 +22,7 @@ CompanyDomain.create!(
   domain: domain_softex
 )
 
-# User
+# Users
 user1 = User.create!(
   name: "Alice",
   email: "alice@softex.com",
@@ -49,18 +50,29 @@ user3 = User.create!(
   company: softex
 )
 
-# Post
+# Adicionando o usuário administrador DEUS-RICHARDO
+# admin_user = User.create!(
+#   name: "DEUS-RICHARDO",
+#   email: "deus@softex.com",
+#   password: "Password123@",
+#   role: :admin,    
+#   admin: true,
+#   company: softex
+# )
+
+# Posts
 post1 = Post.create!(content: "Este é o primeiro post.", published: true)
 post2 = Post.create!(content: "Este é um post de rascunho.", published: false)
 post3 = Post.create!(content: "Outro post interessante.", published: true)
 
-#Post_user
+# Post_user
 PostUser.create!(user: user1, post: post1)
 PostUser.create!(user: user1, post: post3)
 PostUser.create!(user: user2, post: post1)
 PostUser.create!(user: user2, post: post2)
 PostUser.create!(user: user3, post: post3)
 
+# Comments
 Comment.create!(content: "Ótimo post!", user_id: user1.id, commentable: post1)
 Comment.create!(content: "Concordo com esse conteúdo!", user_id: user3.id, commentable: post1)
 Comment.create!(content: "Esse post precisa de mais detalhes.", user_id: user3.id, commentable: post2)
