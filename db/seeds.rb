@@ -54,13 +54,13 @@ post1 = Post.create!(content: "Este é o primeiro post.", published: true)
 post2 = Post.create!(content: "Este é um post de rascunho.", published: false)
 post3 = Post.create!(content: "Outro post interessante.", published: true)
 
-file_path_1 = Rails.root.join("/mnt/c/Users/natal/Downloads/cogumelos.jpg")
+# file_path_1 = Rails.root.join("/mnt/c/Users/natal/Downloads/cogumelos.jpg")
 
-post1.attachments.attach(
-  io: File.open(file_path_1),
-  filename: 'cogumelos.jpg',
-  content_type: 'image/jpeg'
-)
+# post1.attachments.attach(
+#   io: File.open(file_path_1),
+#   filename: 'cogumelos.jpg',
+#   content_type: 'image/jpeg'
+# )
 
 
 #Post_user
