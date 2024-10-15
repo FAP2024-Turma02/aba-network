@@ -1,7 +1,6 @@
 class AttachmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :post
-  before_action :attachment, only: :show
 
   def index
     @attachments = policy_scope(@post.attachments, policy_scope_class: AttachmentPolicy::Scope)
@@ -9,7 +8,7 @@ class AttachmentsController < ApplicationController
   end
 
   def show
-    authorize @attachment, :show?, policy_class: AttachmentPolicy
+    authorize attachment, :show?, policy_class: AttachmentPolicy
     render json: @attachment
   end
 
@@ -22,5 +21,4 @@ class AttachmentsController < ApplicationController
   def attachment
     @attachment ||= @post.attachments.find(params[:id])
   end
-
 end
