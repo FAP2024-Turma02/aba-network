@@ -1,7 +1,4 @@
 class DomainsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :domain, only: [:show]
-  before_action :authorize_domain, only: [:show]
 
   def index
     @domains = policy_scope(Domain)
@@ -9,7 +6,8 @@ class DomainsController < ApplicationController
   end
 
   def show
-    render json: @domain
+    authorize_domain
+    render json: domain
   end
 
   private
@@ -21,5 +19,4 @@ class DomainsController < ApplicationController
   def authorize_domain
     authorize domain
   end
-
 end
