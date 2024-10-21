@@ -7,6 +7,22 @@ class CommentPolicy < ApplicationPolicy
     true
   end
 
+  def create?
+    user.present? 
+  end
+
+  def new?
+    create?
+  end
+
+  def update?
+    user.present? && (user.admin? || user.moderator? || user == record.user)
+  end
+
+  def permitted_attributes
+      [:content, :commentable_id, :commentable_type, :user_id]
+  end
+
   class Scope < ApplicationPolicy::Scope
     def resolve
       scope.all
