@@ -16,7 +16,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present? && (user.admin? || user.moderator? || user == record.user)
+    user.present? && (user == record.user)
   end
 
   def permitted_attributes

@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
   before_action :comment, only: %i[show update]
 
   def index
@@ -13,10 +12,18 @@ class CommentsController < ApplicationController
   end
   
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.new(permitted_attributes(Comment))
+    
+    if params[:post_id]
+      @comment.commentable = Post.find(params[:post_id])
+    elsif params[:comment_id]
+      @comment.commentable = Comment.find(params[:comment_id])
+    else
+      return render json: { error: 'O comentário deve estar associado a uma postagem ou outro comentário'}, status: :unprocessable_entity
+    end
     
     authorize @comment
-
+  
     if @comment.save
       render json: CommentSerializer.call(@comment), status: :created
     else
@@ -27,22 +34,16 @@ class CommentsController < ApplicationController
   def update 
     authorize @comment
 
-    if @comment.update(comment_params)
+    if @comment.update(permitted_attributes(Comment))
       render json: CommentSerializer.call(@comment), status: :ok
     else
       render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
     end
-  rescue Pundit::NotAuthorizedError
-    render json: { error: 'Você não tem permissão para atualizar este comentário.' }, status: :forbidden
   end
 
   private
 
   def comment
     @comment ||= Comment.find(params[:id])
-  end
-
-  def comment_params
-    params.require(:comment).permit(policy(@comment||Comment).permitted_attributes)
   end
 end
