@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
-  resources :comments, only: [:show, :index]
+  resources :posts, only: [:index, :show]
+  resources :companies, only: [:index, :show] 
   mount_devise_token_auth_for 'User', at: 'auth'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
+  resources :posts do
+    resources :comments, only: [:show, :index, :create, :update]
+  end
+  resources :comments do
+    resources :comments, only: [:show, :index, :create, :update]
+  end
 
+
+  
   # Defines the root path route ("/")
   # root "articles#index"
   #
