@@ -14,6 +14,8 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(permitted_attributes(Comment))
 
+    @comment.user = current_user
+
     if params[:post_id]
       @comment.commentable = Post.find(params[:post_id])
     elsif params[:comment_id]
