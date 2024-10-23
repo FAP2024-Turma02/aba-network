@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :comment, only: %i[show]
+  before_action :comment, only: %i[show update]
 
   def index
     @comments = policy_scope(Comment).order(created_at: :desc)
