@@ -1,6 +1,4 @@
 class UserPolicy < ApplicationPolicy
-    attr_reader :current_user, :user
-  
     def index?
       true
     end
@@ -10,12 +8,11 @@ class UserPolicy < ApplicationPolicy
     end
   
     def update?
-      current_user.admin? || current_user == user  # Admins ou o próprio usuário podem editar seus dados
+      user.admin? || user.id == record.id  
     end
   
     def create?
       true
-  
     end
   
     def permitted_attributes
@@ -23,7 +20,7 @@ class UserPolicy < ApplicationPolicy
     end
   
     def destroy?
-      current_user.admin? || current_user == user  # Apenas administradores podem deletar usuários
+      user.admin? || user.id == record.id
     end
 end
   
