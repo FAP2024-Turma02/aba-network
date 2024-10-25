@@ -12,7 +12,7 @@ class UserPolicy < ApplicationPolicy
     end
   
     def create?
-      true
+      user.admin?
     end
   
     def permitted_attributes
@@ -21,6 +21,12 @@ class UserPolicy < ApplicationPolicy
   
     def destroy?
       user.admin? || user.id == record.id
+    end
+
+    class Scope < ApplicationPolicy::Scope
+      def resolve
+        scope.all
+      end
     end
 end
   
