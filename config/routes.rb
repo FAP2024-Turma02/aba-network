@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :comments, only: [:show, :index]
+  resources :posts, only: [:index, :show]
   resources :companies, only: [:index, :show]
   mount_devise_token_auth_for 'User', at: 'auth'
 
