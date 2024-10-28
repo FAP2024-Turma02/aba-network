@@ -81,6 +81,8 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.session_store :cookie_store, key: '_aba_network_session'
+
 end
