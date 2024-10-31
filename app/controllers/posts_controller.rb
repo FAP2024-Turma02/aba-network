@@ -13,15 +13,29 @@ class PostsController < ApplicationController
     post = Post.create(permitted_attributes(Post))
     authorize post
     post.users << current_user
-    render json: PostSerializer.call(post), status: :created
-  end
 
+      if params[:post][:attachments].present?
+        Array(params[:post][:attachments]).each do |attachment|
+          post.attachments.attach(attachment)
+        end
+      end
+
+      render json: PostSerializer.call(post), status: :created
+  end
+  
   def update
     authorize set_post
     set_post.update!(permitted_attributes(Post))
+    
+    if params[:post][:attachments].present?
+      Array(params[:post][:attachments]).each do |attachment|
+        post.attachments.attach(attachment)
+      end
+    end
+    
     render json: PostSerializer.call(set_post), status: :ok
   end
-
+  
   private
 
   def set_post
