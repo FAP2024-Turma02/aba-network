@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  # GET /posts/:post_id/comments ou /comments/:comment_id/comments
+  # GET /posts/:post_id/comments or /comments/:comment_id/comments
   def index
     if params[:post_id]
       post = Post.find(params[:post_id])
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
       authorize comment
       render json: CommentSerializer.call(comment)
     end
-  end
+ end
 
   #POST /posts/:post_id/comments or /comments/:comment_id/comments
   def create
