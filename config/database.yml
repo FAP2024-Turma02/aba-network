@@ -18,4 +18,3 @@ production:
   database: aba_network_production
   username: aba_network
   password: <%= ENV["ABA_NETWORK_DATABASE_PASSWORD"] %>
-  
