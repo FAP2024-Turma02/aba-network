@@ -29,7 +29,7 @@ class CommentPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.where(user: user)
+      scope.all
     end
   end
 end

@@ -72,10 +72,16 @@ PostUser.create!(user: user2, post: post1)
 PostUser.create!(user: user2, post: post2)
 PostUser.create!(user: user3, post: post3)
 
-# Comments
-Comment.create!(content: "Ótimo post!", user_id: user1.id, commentable: post1)
-Comment.create!(content: "Concordo com esse conteúdo!", user_id: user3.id, commentable: post1)
-Comment.create!(content: "Esse post precisa de mais detalhes.", user_id: user3.id, commentable: post2)
-Comment.create!(content: "Adorei esse post.", user_id: user2.id, commentable: post3)
+# Comentários em posts
+comment1 = Comment.create!(content: "Ótimo post!", user_id: user1.id, commentable: post1)
+comment2 = Comment.create!(content: "Concordo com esse conteúdo!", user_id: user3.id, commentable: post1)
+comment3 = Comment.create!(content: "Esse post precisa de mais detalhes.", user_id: user3.id, commentable: post2)
+comment4 = Comment.create!(content: "Adorei esse post.", user_id: user2.id, commentable: post3)
+
+# Comentários em comentários (respostas)
+Comment.create!(content: "Obrigado pelo feedback!", user_id: user2.id, commentable: comment1)
+Comment.create!(content: "Também acho!", user_id: user1.id, commentable: comment2)
+Comment.create!(content: "Vou considerar adicionar mais detalhes.", user_id: user2.id, commentable: comment3)
+Comment.create!(content: "Fico feliz que gostou!", user_id: user3.id, commentable: comment4)
 
 puts "Seeds criados com sucesso!"
