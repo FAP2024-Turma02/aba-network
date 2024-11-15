@@ -19,6 +19,10 @@ class DomainPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def permitted_attributes
+    [:domain_url]
+  end
+
   class Scope < Scope
     def resolve
       if user.admin? || user.moderator?
