@@ -12,7 +12,6 @@ class DomainsController < ApplicationController
   def create 
     authorize Domain
     @domain = Domain.create(permitted_attributes(Domain))
-
     render json: DomainSerializer.call(domain), status: :created
   end
 
