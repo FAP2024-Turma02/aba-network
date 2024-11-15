@@ -5,10 +5,29 @@ class DomainsController < ApplicationController
   end
 
   def show
-    authorize domain
+    authorize Domain
     render json: domain
   end
 
+  def create 
+    authorize Domain
+    @domain = Domain.create(permitted_attributes(Domain))
+
+    render json: DomainSerializer.call(domain), status: :created
+  end
+
+  def update
+    authorize Domain
+    domain.update!(permitted_attributes(Domain))  
+    render json: DomainSerializer.call(domain), status: :ok
+  end
+
+  def destroy
+    authorize Domain
+    domain.destroy!
+    head :no_content
+  end
+  
   private
   def domain
     @domain ||= Domain.find(params[:id])
