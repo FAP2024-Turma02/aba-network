@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
   resources :companies, except: :destroy
-  resources :domains, only: [:index, :show]
+  resources :domains
   resources :posts, only: [:index, :show, :create, :update, :destroy]
   resources :users, except: :destroy
   
