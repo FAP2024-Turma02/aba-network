@@ -1,0 +1,392 @@
+---
+openapi: 3.0.1
+info:
+  title: ABA - Network - SOFTEX- v1
+  description: |-
+    Esta aplicação é um hub colaborativo para facilitar o compartilhamento de projetos
+            relacionados à cultura maker entre professores, educadores e estudantes de instituições de ensino,
+            ONGs e associações. Destina-se à exposição de projetos educacionais e criativos, promovendo a colaboração
+            e a troca de ideias em um ambiente seguro e moderado.
+  version: v1
+  contact:
+    name: Repositorio da API
+    url: https://github.com/FAP2024-Turma02/aba-network
+paths:
+  "/auth/sign_in":
+    post:
+      summary: Realizar login
+      tags:
+      - Autenticação
+      parameters: []
+      responses:
+        '200':
+          description: Login bem-sucedido
+        '401':
+          description: Credenciais inválidas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user@example.com
+                password:
+                  type: string
+                  example: password123
+              required:
+              - email
+              - password
+  "/posts/{post_id}/comments":
+    parameters:
+    - name: post_id
+      in: path
+      description: ID do post associado
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Lista comentários
+      tags:
+      - Comments
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create comment
+      tags:
+      - Comments
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: New comment content
+              required:
+              - content
+  "/posts/{post_id}/comments/{id}":
+    parameters:
+    - name: post_id
+      in: path
+      description: ID do post associado
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: ID do comentário
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show comment
+      tags:
+      - Comments
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update comment
+      tags:
+      - Comments
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Updated content
+              required:
+              - content
+    delete:
+      summary: delete comment
+      tags:
+      - Comments
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+  "/comments/{comment_id}/comments":
+    parameters:
+    - name: comment_id
+      in: path
+      description: ID do comentário pai
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Lista respostas
+      tags:
+      - Replies
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create reply
+      tags:
+      - Replies
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: This is a reply to a comment
+              required:
+              - content
+  "/comments/{comment_id}/comments/{id}":
+    parameters:
+    - name: comment_id
+      in: path
+      description: comment_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show reply
+      tags:
+      - Replies
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update reply
+      tags:
+      - Replies
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Updated reply content
+              required:
+              - content
+    delete:
+      summary: delete reply
+      tags:
+      - Replies
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+  schemas:
+    ActiveStorageAttachment:
+      type: object
+      properties:
+        name:
+          type: string
+          example: image.png
+        record_type:
+          type: string
+          example: Post
+        record_id:
+          type: integer
+          example: 1
+        blob_id:
+          type: integer
+          example: 123
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+    ActiveStorageBlob:
+      type: object
+      properties:
+        key:
+          type: string
+          example: abcdef123456
+        filename:
+          type: string
+          example: image.png
+        content_type:
+          type: string
+          example: image/png
+        metadata:
+          type: string
+          example: "{}"
+        service_name:
+          type: string
+          example: local
+        byte_size:
+          type: integer
+          example: 204800
+        checksum:
+          type: string
+          example: sha256-abc123
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+    Comment:
+      type: object
+      properties:
+        content:
+          type: string
+          example: Great post!
+        user_id:
+          type: integer
+          example: 1
+        commentable_id:
+          type: integer
+          example: 1
+        commentable_type:
+          type: string
+          example: Post
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+    Company:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme Corporation
+        cnpj:
+          type: string
+          example: 12.345.678/0001-90
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@example.com
+        encrypted_password:
+          type: string
+          example: "$2a$12$KIXv3I1H1y5A5Kg3kGZrMOgQ5E.."
+        name:
+          type: string
+          example: John Doe
+        role:
+          type: integer
+          example: 0
+        admin:
+          type: boolean
+          example: false
+        provider:
+          type: string
+          example: email
+        uid:
+          type: string
+          example: user@example.com
+        tokens:
+          type: object
+          example: {}
+        company_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+    Post:
+      type: object
+      properties:
+        content:
+          type: string
+          example: This is a sample post content.
+        published:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+    Domain:
+      type: object
+      properties:
+        domain_url:
+          type: string
+          example: https://example.com
+        created_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2024-11-01T12:00:00Z'
+  security:
+  - bearerAuth: []
