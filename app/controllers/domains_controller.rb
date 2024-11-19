@@ -9,12 +9,14 @@ class DomainsController < ApplicationController
     render json: domain
   end
 
-  def create 
+  def create
     authorize Domain
-    @domain = Domain.create(permitted_attributes(Domain))
+    domain = Domain.create(permitted_attributes(Domain))
+    company = Company.find(params[:company_id]) 
+    domain.companies << company
     render json: DomainSerializer.call(domain), status: :created
   end
-
+  
   def update
     authorize Domain
     domain.update!(permitted_attributes(Domain))  
