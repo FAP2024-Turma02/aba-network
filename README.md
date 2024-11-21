@@ -55,4 +55,20 @@ Após instalar as dependências com `bundle install`, você pode iniciar o servi
 
 ```bash
 rails server
+```
+# UsuáriosController
+
+Este controlador lida com operações CRUD para o recurso `User`, implementando verificações de autorização usando o Pundit.
+
+## Ações
+
+- **index**: Retorna uma lista de usuários, ordenada por `created_at`, serializada usando `UserSerializer`.
+- **show**: Busca e retorna um usuário específico por ID, serializado usando `UserSerializer`.
+- **create**: Cria um novo usuário a partir de parâmetros permitidos e retorna o usuário serializado.
+- **update**: Atualiza as informações de um usuário existente e retorna o usuário serializado.
+- **destroy**: Exclui um usuário e não retorna nenhum conteúdo.
+
+## Autorização
+
+O controlador usa o Pundit para garantir que os usuários tenham permissões apropriadas para executar ações. O método `authorize` garante que o usuário atual esteja autorizado para a ação solicitada.
 
