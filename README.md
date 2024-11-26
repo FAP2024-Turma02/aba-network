@@ -32,6 +32,25 @@ Estas gems são carregadas apenas no ambiente de desenvolvimento e teste:
 - **Debug**: 
   - Ferramenta de depuração que permite adicionar breakpoints e inspecionar o código durante o desenvolvimento e teste da aplicação. Compatível com várias plataformas Ruby.
 
+- **Rubocop (~> 1.50)**: 
+  - Ferramenta de análise estática de código Ruby. Ela ajuda a identificar e corrigir problemas no estilo de código, garantindo que ele esteja alinhado com as melhores práticas. 
+
+  #### Melhoria da eficiência com Rubocop:
+
+  Para melhor eficiência ao usar o **Rubocop**, recomendamos o uso do editor **VSCode** com as seguintes configurações:
+  - Instale as extensões:
+    - [Ruby LSP](https://marketplace.visualstudio.com/items?itemName=Shopify.ruby-lsp): Adiciona suporte ao Ruby Language Server Protocol, com recursos como autocomplete e diagnósticos.
+    - [Rubocop](https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop): Fornece linting e autocorreções integradas no editor.
+  - Configure o `settings.json` do VSCode com:
+    ```json
+    {
+      "rubyLsp.enabled": true,
+      "ruby.rubocop.onSave": true,
+      "editor.formatOnSave": true
+    }
+    ```
+  Essas configurações garantem que o código seja automaticamente analisado e corrigido ao salvar um arquivo.
+
 ### Gems para Autenticação
 
 - **Devise (~> 4.9)**: 
@@ -55,4 +74,3 @@ Após instalar as dependências com `bundle install`, você pode iniciar o servi
 
 ```bash
 rails server
-
