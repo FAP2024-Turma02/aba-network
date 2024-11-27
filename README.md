@@ -1,58 +1,53 @@
-# README
+# Aba Network
 
-## Dependências do Projeto
+Este é um projeto colaborativo desenvolvido para facilitar o compartilhamento e troca de projetos relacionados à cultura maker entre professores, educadores e estudantes. A aplicação é voltada para instituições educacionais e espaços de educação não formal, promovendo um ambiente seguro e moderado para a exposição e troca de ideias criativas.
 
-Este projeto utiliza várias gems para fornecer diferentes funcionalidades. Abaixo está uma explicação detalhada das principais gems incluídas no arquivo `Gemfile`:
+---
 
-### Ruby Version
+## Tecnologias Utilizadas
 
-- **Ruby 3.2.1**: O projeto está configurado para rodar na versão `3.2.1` do Ruby. Certifique-se de que esta versão está instalada no seu ambiente.
+- **Ruby on Rails** `~> 7.0.8`, `>= 7.0.8.4`
+- **PostgreSQL** `~> 1.1`
+- **Puma** `~> 5.0`
 
-### Gems Utilizadas
+---
 
-- **Rails (~> 7.0.8, >= 7.0.8.4)**: 
-  - Framework web completo que fornece uma arquitetura MVC (Model-View-Controller), bem como uma variedade de ferramentas para construir APIs, sistemas web e aplicações modernas.
+## Pré-requisitos
 
-- **pg (~> 1.1)**: 
-  - Adaptação do PostgreSQL para ActiveRecord. Esta gem permite que o Rails se comunique com o banco de dados PostgreSQL.
+Certifique-se de que sua máquina atenda aos seguintes requisitos:
 
-- **Puma (~> 5.0)**: 
-  - Servidor de aplicação usado por padrão no Rails. Ele é projetado para ser concorrente, rápido e adequado para ambientes de produção.
+- **Ruby** (versão 3.2.2 ou superior)
+- **Rails** (versão 7.0.8.4)
+- **PostgreSQL** (versão 12 ou superior)
+- **Bundler** (versão 2.4 ou superior)
 
-- **tzinfo-data**: 
-  - Inclui dados de fuso horário para ambientes Windows, que não fornecem esses dados nativamente. Necessário apenas ao rodar o projeto em sistemas Windows.
+---
 
-- **Bootsnap**: 
-  - Acelera o tempo de inicialização da aplicação através de caching. É especialmente útil em projetos grandes para reduzir a latência ao iniciar o Rails.
+## Configuração e Instalação
 
-### Gems para Desenvolvimento e Teste
-
-Estas gems são carregadas apenas no ambiente de desenvolvimento e teste:
-
-- **Debug**: 
-  - Ferramenta de depuração que permite adicionar breakpoints e inspecionar o código durante o desenvolvimento e teste da aplicação. Compatível com várias plataformas Ruby.
-
-### Gems para Autenticação
-
-- **Devise (~> 4.9)**: 
-  - Sistema completo de autenticação para Rails. O Devise fornece soluções rápidas e seguras para implementar login, logout, recuperação de senha e outras funcionalidades relacionadas à autenticação de usuários.
-
-### Agrupamento de Gems
-
-- **group :development, :test**: 
-  - Gems dentro desse grupo serão instaladas apenas nos ambientes de desenvolvimento e teste.
-
-- **group :development**: 
-  - Gems deste grupo serão instaladas exclusivamente no ambiente de desenvolvimento.
-
-### Instruções para Variáveis de Ambiente
-
-Recomendamos o uso de variáveis de ambiente para armazenar informações sensíveis como o `username`, `password`, `host` e `port` do banco de dados. Veja mais no arquivo `config/database.yml`.
-
-### Executando a Aplicação
-
-Após instalar as dependências com `bundle install`, você pode iniciar o servidor utilizando:
-
+### 1. Clone o repositório
+```bash
+git clone https://github.com/FAP2024-Turma02/aba-network.git
+cd aba-network
+```
+---
+### 2. Instale as dependências
+```bash
+bundle install
+```
+---
+### 3. Configure o banco de dados
+Edite o arquivo config/database.yml com as configurações do seu banco de dados PostgreSQL.
+Depois, execute os comandos abaixo para criar e migrar o banco:
+```bash
+rails db:create
+rails db:migrate
+```
+---
+### 4. Inicie o servidor
 ```bash
 rails server
-
+```
+---
+### 5. Acesse a aplicação
+Abra o navegador e vá para http://localhost:3000.
